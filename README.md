@@ -4,6 +4,8 @@ Simulateur stochastique de réactions biochimiques.
 
 TER proposé par Patrick Amar.
 
+Rendu le 10/05/2020.
+
 ## Description
 
 Le principe de ce programme est de simuler les déplacement des molécules et les réactions entre molécule dans une vésicule.
@@ -12,38 +14,40 @@ En entrée, on a un fichier qui donne les informations sur les molécules et les
 
 En sortie, on a un .csv qui donne la population de chaque type de molécule tous les t temps et un graphique généré avec le .csv par GNUPlot.
 
-Exemple de fichier d'entrée :
+Exemple de fichier d'entrée (test3.txt) :
 ```
 espece E, S, P, ES;
-diametre = 1000;
+diametre = 260;
 
-taille(E) = 7;
-vitesse(E) = 0.5;
 init(E) = 50;
+init(S) = 1000;
 
-init(S) = 50;
-
-E + S -> ES [0.3];
-ES -> E + S [0.002];
-ES -> E + P [0.005];
+E + S -> ES [0.2];
+ES -> E + S [0.01];
+ES -> E + P [0.001];
 ```
 
-Exemple de fichier de sortie :
+Exemple de fichier de sortie (test3.txt) :
 ```
 toursSimu;tempsSimu;nbMolecules;ES;P;S;E;
-0;0;100;0;0;50;50;
-100;0.01;84;16;8;26;34;
-200;0.02;85;15;11;24;35;
-300;0.03;87;13;15;22;37;
-400;0.04;91;9;23;18;41;
-500;0.05;96;4;28;18;46;
-600;0.06;94;6;30;14;44;
-700;0.07;93;7;31;12;43;
-800;0.08;97;3;36;11;47;
-900;0.09;99;1;38;11;49;
-1000;0.1;99;1;39;10;49;
+0;0;1050;0;0;1000;50;
+100;0.01;1023;27;1;972;23;
+200;0.02;1019;31;3;966;19;
+300;0.03;1026;24;9;967;26;
+400;0.04;1024;26;9;965;24;
+500;0.05;1022;28;12;960;22;
+600;0.06;1019;31;20;949;19;
+700;0.07;1014;36;27;937;14;
+800;0.08;1018;32;32;936;18;
+900;0.09;1018;32;38;930;18;
+1000;0.1;1023;27;45;928;23;
 ...
 ```
+Exemple GNUPlot (test3.txt) :
+![alt text](exemple3.png)
+
+Exemple GNUPlot (test2.txt) :
+![alt text](exemple2.png)
 
 ## Programme
 ### Compilation
