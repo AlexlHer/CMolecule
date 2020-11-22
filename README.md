@@ -8,7 +8,7 @@ Rendu le 10/05/2020.
 
 ## Description
 
-Le principe de ce programme est de simuler les déplacement des molécules et les réactions entre molécule dans une vésicule.
+Le principe de ce programme est de simuler les déplacements des molécules et les réactions entre molécule dans une vésicule.
 
 En entrée, on a un fichier qui donne les informations sur les molécules et les réactions possibles entre ces molécules.
 
