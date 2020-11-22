@@ -12,7 +12,7 @@ Le principe de ce programme est de simuler les déplacement des molécules et le
 
 En entrée, on a un fichier qui donne les informations sur les molécules et les réactions possibles entre ces molécules.
 
-En sortie, on a un .csv qui donne la population de chaque type de molécule tous les t temps et un graphique généré avec le .csv par GNUPlot.
+En sortie, on a un .csv qui donne la population de chaque type de molécule tous les t temps et un graphique généré par GNUPlot avec le .csv.
 
 Exemple de fichier d'entrée (test3.txt) :
 ```
