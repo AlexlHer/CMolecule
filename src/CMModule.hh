@@ -1,4 +1,4 @@
-// -*- tab-width: 2; indent-tabs-mode: nil; coding: utf-8-with-signature -*-
+﻿// -*- tab-width: 2; indent-tabs-mode: nil; coding: utf-8-with-signature -*-
 
 #include "CM_axl.h"
 #include <arcane/ITimeLoopMng.h>
