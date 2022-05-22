@@ -1,4 +1,4 @@
-# CMolecule
+# CMolecule Arcane Version
 ## Par Alexandre l'Heritier
 Simulateur stochastique de réactions biochimiques.
 
@@ -43,11 +43,6 @@ toursSimu;tempsSimu;nbMolecules;ES;P;S;E;
 1000;0.1;1023;27;45;928;23;
 ...
 ```
-Exemple GNUPlot (test3.txt) :
-![alt text](exemple3.png)
-
-Exemple GNUPlot (test2.txt) :
-![alt text](exemple2.png)
 
 ## Programme
 ### Compilation
