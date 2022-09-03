@@ -35,19 +35,19 @@
     <complex name="reaction" type="Reaction" minOccurs="1" maxOccurs="unbounded">
       <description>Reaction</description>
 
-      <simple name="first-left" type="string" default="default">
+      <simple name="first-left" type="string" default="">
         <description>first-left</description>
       </simple>
 
-      <simple name="sec-left" type="string" default="default">
+      <simple name="sec-left" type="string" default="">
         <description>sec-left</description>
       </simple>
 
-      <simple name="first-right" type="string" default="default">
+      <simple name="first-right" type="string" default="">
         <description>first-right</description>
       </simple>
 
-      <simple name="sec-right" type="string" default="default">
+      <simple name="sec-right" type="string" default="">
         <description>sec-right</description>
       </simple>
 

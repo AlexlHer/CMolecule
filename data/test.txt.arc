@@ -34,18 +34,55 @@
   </meshes>
   <c-m>
     <diametre>1000</diametre>
+
     <espece>
       <name>E</name>
       <size>7</size>
       <speed>0.5</speed>
       <init>50</init>
     </espece>
+
+    <espece>
+      <name>S</name>
+      <size>10</size>
+      <speed>1</speed>
+      <init>50</init>
+    </espece>
+
+    <espece>
+      <name>P</name>
+      <size>10</size>
+      <speed>1</speed>
+      <init>0</init>
+    </espece>
+
+    <espece>
+      <name>ES</name>
+      <size>10</size>
+      <speed>1</speed>
+      <init>0</init>
+    </espece>
+
     <reaction>
       <first-left>E</first-left>
       <sec-left>S</sec-left>
       <first-right>ES</first-right>
-      <sec-right>E</sec-right>
       <proba>0.3</proba>
     </reaction>
+
+    <reaction>
+      <first-left>ES</first-left>
+      <first-right>E</first-right>
+      <sec-right>S</sec-right>
+      <proba>0.002</proba>
+    </reaction>
+
+    <reaction>
+      <first-left>ES</first-left>
+      <first-right>E</first-right>
+      <sec-right>P</sec-right>
+      <proba>0.005</proba>
+    </reaction>
+
   </c-m>
 </case>
