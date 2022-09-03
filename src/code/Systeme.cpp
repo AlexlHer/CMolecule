@@ -68,8 +68,10 @@ int Systeme::addReaction(std::string a, std::string b, std::string c, std::strin
 
 	// Si un nom n'a pas été trouvé, erreur.
 	// (les seconds réactif et produit n'étant pas indispensable, on ajuste la condition).
-	if (aa == -1 || (bb == -1 && b != "") || cc == -1 || (dd == -1 && d != ""))
+	if (aa == -1 || (bb == -1 && b != "") || cc == -1 || (dd == -1 && d != "")){
+		std::cout << "AAAAAAAAAAAAAAAAAAA" << std::endl;
 		return 1;
+	}
 
 	// On crée la Reaction avec les especesMol qu'on a trouvé.
 	Reaction *r = new Reaction();
