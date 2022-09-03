@@ -1,0 +1,9 @@
+espece E, S, P, ES;
+diametre = 260;
+
+init(E) = 50;
+init(S) = 1000;
+
+E + S -> ES [0.2];
+ES -> E + S [0.01];
+ES -> E + P [0.001];

@@ -19,8 +19,6 @@
  */ 
 void Case::addMolecule(Molecule* m, bool increm, bool synchro)
 {
-	omp_set_lock(&verrou);
-
 	// Si on veux effectuer le déplacement des positions de la molécule.
 	if(synchro)
 	{
@@ -33,8 +31,6 @@ void Case::addMolecule(Molecule* m, bool increm, bool synchro)
 
 	molecules.push_back(m);
 	if(increm) nbMolecule++;
-
-	omp_unset_lock(&verrou);
 }
 
 /**
@@ -47,8 +43,6 @@ void Case::addMolecule(Molecule* m, bool increm, bool synchro)
  */
 int Case::delMolecule(Molecule *m, bool decrem, bool synchro)
 {
-	omp_set_lock(&verrou);
-
 	// On recherche la Molecule.
 	for (int i = 0; i < molecules.size(); i++)
 	{
@@ -67,12 +61,9 @@ int Case::delMolecule(Molecule *m, bool decrem, bool synchro)
 				m->setPosK(-1);
 			}
 
-			omp_unset_lock(&verrou);
 			return 0;
 		}
 	}
-
-	omp_unset_lock(&verrou);
 
 	// Pas trouvé donc 1.
 	return 1;
@@ -83,13 +74,9 @@ int Case::delMolecule(Molecule *m, bool decrem, bool synchro)
  */
 void Case::clsMolecule()
 {
-	omp_set_lock(&verrou);
-
 	// clear avec vector<Molecule*> n'appelle pas le destructeur des molecules.
 	molecules.clear();
 	nbMolecule = 0;
-
-	omp_unset_lock(&verrou);
 }
 
 /**
@@ -108,19 +95,15 @@ void Case::syncNbMolecule()
  */
 Molecule* Case::getMolecule(int pos)
 {
-	omp_set_lock(&verrou);
-
 	// Si la position donné n'est pas correct, erreur.
 	if (pos < 0 || pos >= nbMolecule)
 	{
 		std::cerr << "Erreur Case::getMolecule() : Case demandée : " << pos << " sur " << nbMolecule << std::endl;
-		omp_unset_lock(&verrou);
 		return nullptr;
 	}
 
 	else
 	{
-		omp_unset_lock(&verrou);
 		return molecules[pos];
 	}
 	
@@ -131,6 +114,5 @@ Molecule* Case::getMolecule(int pos)
  */
 Case::~Case()
 {
-	omp_destroy_lock(&verrou);
 	molecules.clear();
 }

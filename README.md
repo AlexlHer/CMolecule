@@ -1,4 +1,4 @@
-# CMolecule Arcane Version (CMAMA)
+# CMolecule Arcane Mini-App (CMAMA)
 ## Par Alexandre l'Heritier
 Simulateur stochastique de réactions biochimiques.
 

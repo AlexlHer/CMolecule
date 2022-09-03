@@ -27,7 +27,7 @@ class Case
 		int i, j, k;
 	
 	public:
-		Case() : nbMolecule(0){omp_init_lock(&verrou);};
+		Case() : nbMolecule(0){};
 		~Case();
 
 		void addMolecule(Molecule *, bool, bool);
