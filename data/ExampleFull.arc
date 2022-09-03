@@ -8,9 +8,9 @@
   <meshes>
     <mesh>
       <generator name="Cartesian3D" >
-        <nb-part-x>1</nb-part-x> 
-        <nb-part-y>1</nb-part-y>
-        <nb-part-z>1</nb-part-z>
+        <nb-part-x>3</nb-part-x> 
+        <nb-part-y>2</nb-part-y>
+        <nb-part-z>2</nb-part-z>
 
         <origin>0.0 0.0 0.0</origin>
 
@@ -33,6 +33,19 @@
     </mesh>
   </meshes>
   <c-m>
-
+    <diametre>1000</diametre>
+    <espece>
+      <name>E</name>
+      <size>7</size>
+      <speed>0.5</speed>
+      <init>50</init>
+    </espece>
+    <reaction>
+      <first-left>E</first-left>
+      <sec-left>S</sec-left>
+      <first-right>ES</first-right>
+      <sec-right>E</sec-right>
+      <proba>0.3</proba>
+    </reaction>
   </c-m>
 </case>

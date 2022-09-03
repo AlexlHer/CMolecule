@@ -17,36 +17,20 @@ class CMModule
 
  public:
   /*!
-   * \brief Méthode appelée à chaque itération.
-   */
-  void compute() override;
-  /*!
    * \brief Méthode appelée lors de l'initialisation.
    */
   void startInit() override;
 
+  /*!
+   * \brief Méthode appelée à chaque itération.
+   */
+  void compute() override;
+
+  void readArc();
+
   /** Retourne le numéro de version du module */
-  VersionInfo versionInfo() const override { return VersionInfo(1, 0, 0); }
+  VersionInfo versionInfo() const override { return VersionInfo(0, 1, 0); }
 };
-
-/*---------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------*/
-
-void CMModule::
-compute()
-{
-  info() << "Module CM COMPUTE";
-
-  // Stop code after 10 iterations
-  if (m_global_iteration()>10)
-    subDomain()->timeLoopMng()->stopComputeLoop(true);
-}
-
-void CMModule::
-startInit()
-{
-  info() << "Module CM INIT";
-}
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/

@@ -2,7 +2,60 @@
 <module name="CM" version="1.0">
   <description>Descripteur du module CM</description>
   <entry-points>
-    <entry-point method-name="compute" name="Compute" where="compute-loop" property="none" />
     <entry-point method-name="startInit" name="StartInit" where="start-init" property="none" />
+    <entry-point method-name="compute" name="Compute" where="compute-loop" property="none" />
   </entry-points>
+
+  <options>
+    <simple name="diametre" type="integer" default="10">
+      <description>Diametre</description>
+    </simple>
+
+    <complex name="espece" type="Espece" minOccurs="1" maxOccurs="unbounded">
+      <description>Espece</description>
+
+      <simple name="name" type="string" default="default">
+        <description>Name of espece</description>
+      </simple>
+
+      <simple name="size" type="real" default="0">
+        <description>Size</description>
+      </simple>
+
+      <simple name="speed" type="real" default="0">
+        <description>Speed</description>
+      </simple>
+
+      <simple name="init" type="real" default="0">
+        <description>Init</description>
+      </simple>
+
+    </complex>
+
+    <complex name="reaction" type="Reaction" minOccurs="1" maxOccurs="unbounded">
+      <description>Reaction</description>
+
+      <simple name="first-left" type="string" default="default">
+        <description>first-left</description>
+      </simple>
+
+      <simple name="sec-left" type="string" default="default">
+        <description>sec-left</description>
+      </simple>
+
+      <simple name="first-right" type="string" default="default">
+        <description>first-right</description>
+      </simple>
+
+      <simple name="sec-right" type="string" default="default">
+        <description>sec-right</description>
+      </simple>
+
+      <simple name="proba" type="real" default="0">
+        <description>proba</description>
+      </simple>
+
+
+    </complex>
+  </options>
 </module>

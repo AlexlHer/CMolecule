@@ -9,7 +9,6 @@
 #include <math.h>
 #include <random>
 #include <ctime>
-#include <omp.h>
 
 #define PI 3.14159265358979323846
 
@@ -26,7 +25,7 @@
 GestionEntiteCentre::GestionEntiteCentre(std::vector<EspeceMoleculaire *> *e, std::vector<Reaction *> *r, int d, std::ofstream &log, int decoupage, int nbThread)
 {
 	log << std::endl << "-----Création de la simulation Entité Centré-----" << std::endl;
-	log << std::endl << "Nombre de processeurs logiques disponibles : " << omp_get_max_threads() << std::endl;
+	log << std::endl << "Nombre de processeurs logiques disponibles : " << std::endl;
 
 	especesMoleculaires = e;
 	reactions = r;
@@ -61,24 +60,21 @@ GestionEntiteCentre::GestionEntiteCentre(std::vector<EspeceMoleculaire *> *e, st
 	if(nbThread == -1 && decoupage == -1)
 	{
 		// sqrt3(nbThreadMax) donne le découpage.
-		decoupage = pow(omp_get_max_threads(), 1.0/3.0);
+		decoupage = pow(1, 1.0/3.0);
 
 		// On prend le nombre de processeurs logiques du PC comme nbThread.
-		nbThread = omp_get_max_threads();
+		nbThread = 1;
 
 		// Une case par thread.
 		nbCasesParThread = 1;
-
-		omp_set_num_threads(nbThread);
 	}
 
 	// Si on doit décider du nombre de thread.
 	else if(nbThread == -1)
 	{
 		// On prend le nombre de processeurs logiques du PC comme nbThread.
-		nbThread = omp_get_max_threads();
+		nbThread = 1;
 		nbCasesParThread = ceil(pow(decoupage, 3) / nbThread);
-		omp_set_num_threads(nbThread);
 	}
 
 	// Si on doit décider du nombre de case de la vésicule.
@@ -87,14 +83,12 @@ GestionEntiteCentre::GestionEntiteCentre(std::vector<EspeceMoleculaire *> *e, st
 		// On prend le nbThread comme le nombre de case qu'on souhaite.
 		decoupage = pow(nbThread, 1.0 / 3.0);
 		nbCasesParThread = ceil(pow(decoupage, 3) / nbThread);
-		omp_set_num_threads(nbThread);
 	}
 
 	// Si on nous donne les deux.
 	else
 	{
 		nbCasesParThread = ceil(pow(decoupage, 3) / nbThread);
-		omp_set_num_threads(nbThread);
 	}
 
 	log << "Nombre de threads utilisés par la simulation : " << nbThread << std::endl;
@@ -319,14 +313,12 @@ void GestionEntiteCentre::simulation(int nbPas = 1)
 		// On effectue les déplacements des molécules.
 		// On met le nombre de thread défini dans le constructeur.
 		// Chaque thread s'occupe d'une Case.
-		#pragma omp parallel for schedule(dynamic, nbCasesParThread)
 		for (int i = 0; i < nbCase; i++)
 		{
 			deplacementMolecules(q[i]);
 		}
 
 		// On effectue les vérifications des collisions et on réalise les réactions.
-		#pragma omp parallel for schedule(dynamic, nbCasesParThread)
 		for (int i = 0; i < nbCase; i++)
 		{
 			collisionsReactions(q[i], false);
@@ -623,8 +615,7 @@ bool GestionEntiteCentre::reactionBimol(Molecule *mi, Molecule *mj, bool tourDeP
 				//mj->setReaction(true);
 
 				// On décrémente nbMolecule de 1.
-				#pragma omp atomic update
-					nbMolecules--;
+				nbMolecules--;
 				
 				// On supprime la molécule de la case.
 				grille[mj->getPosK()][mj->getPosJ()][mj->getPosI()].delMolecule(mj, true, true);
@@ -689,12 +680,9 @@ void GestionEntiteCentre::reactionMonomol(Molecule *mi)
 			if ((*reactions)[k]->getSndDroite() != nullptr)
 			{
 				// On crée une molécule.
-				#pragma omp critical (lastid)
-				{
-					mo = new Molecule((*reactions)[k]->getSndDroite(), lastId);
-					lastId++;
-					nbMolecules++;
-				}
+				mo = new Molecule((*reactions)[k]->getSndDroite(), lastId);
+				lastId++;
+				nbMolecules++;
 
 				// On l'a place à coté de l'autre molécule, vers le centre de la vésicule
 				// (pour être sûr de ne pas sortir de la vésicule).

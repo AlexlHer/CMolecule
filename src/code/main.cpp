@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <cstdlib>
 #include "help.hpp"
-#include "y.tab.hpp"
 #include "Gestion.hpp"
 #include "Systeme.hpp"
 #include "GestionEntiteCentre.hpp"
@@ -18,165 +17,18 @@ std::ifstream *fichier;
  */
 int main(int argc, char **argv)
 {
-	std::cout << "----------------------------------------------" << std::endl;
-	std::cout << "-----Projet TER : Simulation Stochastique-----" << std::endl;
-	std::cout << "-------------Alexandre l'Heritier-------------" << std::endl;
-	std::cout << "----------------------------------------------" << std::endl;
-
-	// Partie lecture des paramètres.
-	// -------------
-	char opt = getopt(argc, argv, ":o:v:t:T:p:123r:c:d:gsh");
-
-	// Si on appelle le prog sans args, on affiche help et on return.
-	if (argc == 1)
-	{
-		std::cout << help << std::endl;
-		return 0;
-	}
 
 	// Quelques variables pour utiliser les args après.
 	bool graph = false, hasLog = false, suivi = false, isSec = true;
 	std::string entre = "", log = "", csv = "out.csv";
 	int tour = 10000, pas = 100, nbThread = -1, decoupe = -1, diff = 100, algo = 1;
 
-	// Pour récupérer les args.
-	do
-	{
-		switch (opt)
-		{
-			case 'o':
-				std::cout << "log : " << optarg << std::endl;
-				log = optarg;
-				hasLog = true;
-				break;
-
-			case 'v':
-				std::cout << "csv : " << optarg << std::endl;
-				csv = optarg;
-				break;
-
-			case 't':
-				std::cout << "temps : " << optarg << std::endl;
-				tour = atoi(optarg) * 10000;
-				if (tour <= 0)
-				{
-					std::cout << "Nombre de secondes invalide." << std::endl;
-					return 1;
-				}
-				break;
-
-			case 'T':
-				std::cout << "tours : " << optarg << std::endl;
-				tour = atoi(optarg);
-				isSec = false;
-				if (tour <= 0)
-				{
-					std::cout << "Nombre de pas invalide." << std::endl;
-					return 1;
-				}
-				break;
-
-			case 'p':
-				std::cout << "pas : " << optarg << std::endl;
-				pas = atoi(optarg);
-				if (pas <= 0)
-				{
-					std::cout << "Nombre de pas invalide." << std::endl;
-					return 1;
-				}
-				break;
-
-			case '1':
-				std::cout << "algo 1" << std::endl;
-				algo = 1;
-				break;
-
-			case '2':
-				std::cout << "algo 2" << std::endl;
-				algo = 2;
-				break;
-
-			case '3':
-				std::cout << "algo 3" << std::endl;
-				algo = 3;
-				break;
-
-			case 'r':
-				std::cout << "threads : " << optarg << std::endl;
-				nbThread = atoi(optarg);
-				if (nbThread <= 0)
-				{
-					std::cout << "Nombre de thread invalide." << std::endl;
-					return 1;
-				}
-				break;
-
-			case 'c':
-				std::cout << "cases : " << optarg << std::endl;
-				decoupe = atoi(optarg);
-				if (decoupe <= 0)
-				{
-					std::cout << "Nombre de case invalide." << std::endl;
-					return 1;
-				}
-				break;
-
-			case 'd':
-				std::cout << "diffusion : " << optarg << std::endl;
-				diff = atoi(optarg);
-				if (diff < 0)
-				{
-					std::cout << "Nombre de tour en diffusion invalide." << std::endl;
-					return 1;
-				}
-				break;
-
-			case 'g':
-				std::cout << "graphique" << std::endl;
-				graph = true;
-				break;
-
-			case 's':
-				std::cout << "suivi" << std::endl;
-				suivi = true;
-				break;
-
-			case 'h':
-				std::cout << help << std::endl;
-				return 0;
-
-			case ':':
-				std::cout << "Erreur : Un argument est manquant." << std::endl;
-				return 1;
-
-			case '?':
-				std::cout << "Erreur : Un argument est inconnu : " << optopt << std::endl;
-				break;
-		}
-		// Arg suivant.
-		opt = getopt(argc, argv, ":o:v:t:T:p:123r:c:d:gsh");
-
-	} while(opt != -1);
-
-	// S'il n'y a pas le nom du fichier à lire, on return.
-	if(optind >= argc) return 1;
-
-	// On récupère le nom du fichier à lire.
 	entre = argv[optind];
-
-	std::cout << "Lecture du fichier : " << entre << std::endl;
 
 	// On ouvre un flux pour lire le fichier
 	fichier = new std::ifstream(entre, std::ifstream::in);
 
-	// Si le fichier ne s'ouvre pas.
-	if(!fichier->is_open())
-	{
-		std::cout << "Erreur : Ouverture du fichier d'entrée impossible." << std::endl;
-		return 1;
-	}
 
-	std::cout << "-----Début analyse LEX/YACC-----" << std::endl;
 
 	// Si yacc détécte une erreur.
 	if (yyparse())
